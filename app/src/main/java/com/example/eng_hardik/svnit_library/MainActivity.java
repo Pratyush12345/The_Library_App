@@ -1,12 +1,20 @@
 package com.example.eng_hardik.svnit_library;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -16,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView info;
     private Button login;
     private int counter =5;
-
+    private FirebaseAuth firebaseAuth;
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -28,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         info = (TextView)findViewById( R.id.text );
         login = (Button)findViewById( R.id.button );
         info.setText("No. of Correct Attempts is 5");
+        firebaseAuth=FirebaseAuth.getInstance();
+        progressDialog=new ProgressDialog( this );
 
         login.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -40,16 +51,28 @@ public class MainActivity extends AppCompatActivity {
 
 
 private void validate(String username, String password){
-    if ((username.equals( "admin" ))&&(password.equals( "123456" ))){
-        Intent intent = new Intent( MainActivity.this, UserActivity.class );
-        startActivity(intent);}
 
-        else{
-        counter--;
-        info.setText( "No. of Attempts remaining : "+String.valueOf( counter ) );
-        if(counter == 0)
-            login.setEnabled(false);
+        progressDialog.setMessage( "wait kr madharchod bhosadiwale" );
+        progressDialog.show();
+        firebaseAuth.signInWithEmailAndPassword( username,password ).addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+            if(task.isSuccessful()){
+                progressDialog.dismiss();
+                Toast.makeText( MainActivity.this,"login successful",Toast.LENGTH_SHORT ).show();
+                Intent intent = new Intent( MainActivity.this,UserActivity.class );
+                startActivity(intent);
+                MainActivity.this.finish();
+            }
+            else{
+                Toast.makeText( MainActivity.this,"login failed",Toast.LENGTH_SHORT ).show();
+                counter--;
+                info.setText( "No of attempts remaining : "+counter );
+                progressDialog.dismiss();
+                if(counter==0)
+                {login.setEnabled( false );}
+            }
+            }
+        } );
     }
-
-}
 }
