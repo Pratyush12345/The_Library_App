@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,19 +22,26 @@ import java.util.ArrayList;
 public class UserActivity extends AppCompatActivity {
 
     private ListView listView;
+
     private DatabaseReference mDatabase;
 
     private ArrayList<String> mUsernames= new ArrayList<>( );
 
+    FirebaseUser user;
+
+    String uid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_user );
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child( "Users" );
+        uid =user.getUid();
 
-        listView = (ListView) findViewById( R.id.listview );
+        mDatabase = FirebaseDatabase.getInstance().getReference().child( "Users" ).child( uid );
+
+        listView = findViewById( R.id.listview );
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>( this, android.R.layout.simple_list_item_1, mUsernames );
         listView.setAdapter( arrayAdapter );
@@ -51,6 +60,9 @@ public class UserActivity extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue( String.class );
+                mUsernames.remove(value);
+                arrayAdapter.notifyDataSetChanged();
 
             }
 

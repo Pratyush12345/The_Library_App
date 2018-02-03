@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView( R.layout.activity_main );
         getSupportActionBar().hide();
 
-        name = (EditText)findViewById( R.id.user );
+        name = findViewById( R.id.user );
         password = (EditText)findViewById( R.id.pass );
         info = (TextView)findViewById( R.id.text );
         login = (Button)findViewById( R.id.button );
@@ -52,20 +52,20 @@ public class MainActivity extends AppCompatActivity {
 
 private void validate(String username, String password){
 
-        progressDialog.setMessage( "wait kr madharchod bhosadiwale" );
+        progressDialog.setMessage( "Wait till the door openes ..." );
         progressDialog.show();
         firebaseAuth.signInWithEmailAndPassword( username,password ).addOnCompleteListener( new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
             if(task.isSuccessful()){
                 progressDialog.dismiss();
-                Toast.makeText( MainActivity.this,"login successful",Toast.LENGTH_SHORT ).show();
+                Toast.makeText( MainActivity.this,"Login Successful",Toast.LENGTH_SHORT ).show();
                 Intent intent = new Intent( MainActivity.this,UserActivity.class );
                 startActivity(intent);
                 MainActivity.this.finish();
             }
             else{
-                Toast.makeText( MainActivity.this,"login failed",Toast.LENGTH_SHORT ).show();
+                Toast.makeText( MainActivity.this,"Login Failed",Toast.LENGTH_SHORT ).show();
                 counter--;
                 info.setText( "No of attempts remaining : "+counter );
                 progressDialog.dismiss();
