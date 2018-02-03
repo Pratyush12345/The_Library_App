@@ -7,8 +7,22 @@
 
     <ListView
         android:id="@+id/listview"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/name"
+        android:layout_marginTop="21dp" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="26dp"
+        android:ems="10"
+        android:hint="                        Name"
+        android:inputType="textPersonName" />
+
 </RelativeLayout>
