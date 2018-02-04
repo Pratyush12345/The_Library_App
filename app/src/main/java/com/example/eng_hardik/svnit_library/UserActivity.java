@@ -14,17 +14,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class UserActivity extends AppCompatActivity{
 
+
     private ListView listView;
 
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase, mName;
 
     private ArrayList<String> mUsernames= new ArrayList<>( );
-
+    private TextView name;
     FirebaseUser user;
 
     String uid;
@@ -34,9 +36,43 @@ public class UserActivity extends AppCompatActivity{
         setContentView( R.layout.activity_user );
         getSupportActionBar().hide();
 
+        name = (TextView)findViewById( R.id.name );
+
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         uid =user.getUid();
+
+        name.setText( "Welcome" );
+
+        mName = FirebaseDatabase.getInstance().getReference().child( "Name" ).child( uid );
+
+        mName.addChildEventListener( new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String value = dataSnapshot.getValue( String.class );
+                name.setText( "Welcome "+value );
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                name.setText( "Error Occured!" );
+            }
+        } );
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child( "Users" ).child( uid );
 

@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         password = (EditText)findViewById( R.id.pass );
         info = (TextView)findViewById( R.id.text );
         login = (Button)findViewById( R.id.button );
-        info.setText("No. of Correct Attempts is 5");
+        info.setText("No. of Correct Attempts are 5");
         firebaseAuth=FirebaseAuth.getInstance();
         progressDialog=new ProgressDialog( this );
 
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
 private void validate(String username, String password){
 
-        progressDialog.setMessage( "Wait till the door openes ..." );
+        progressDialog.setMessage( "Wait till the door opens ..." );
         progressDialog.show();
         firebaseAuth.signInWithEmailAndPassword( username,password ).addOnCompleteListener( new OnCompleteListener<AuthResult>() {
             @Override
