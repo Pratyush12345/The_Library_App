@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "222104580454",
+    "firebase_url": "https://amoc-853d9.firebaseio.com",
+    "project_id": "amoc-853d9",
+    "storage_bucket": "amoc-853d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:222104580454:android:d441d9ba6f0409ad",
+        "android_client_info": {
+          "package_name": "com.example.eng_hardik.svnit_library"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "222104580454-7sh93gt4pc4o1vqq5jkcmslgp5evs3q9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.eng_hardik.svnit_library",
+            "certificate_hash": "6fdc2d0bc08f58382083af8ccb701df5aeb7d7c2"
+          }
+        },
+        {
+          "client_id": "222104580454-cb7uq17206ig7g4cn9rumslpsvs8os9c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.eng_hardik.svnit_library",
+            "certificate_hash": "ca36519c5334009a256f172841987204d0161c0a"
+          }
+        },
+        {
+          "client_id": "222104580454-nar8r6nca90ia11fl9ulkcu55qbs1u6p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDiUcRPwaU4XjVki6_1xue5yG8l0F7j6o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "222104580454-nar8r6nca90ia11fl9ulkcu55qbs1u6p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
